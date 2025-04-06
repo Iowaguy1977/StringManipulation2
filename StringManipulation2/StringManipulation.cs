@@ -55,6 +55,11 @@ namespace FindAWord
             {
                 ConvertedSentence=_Regex.Replace(InputString,"");
             }
+            else
+            {
+                ConvertedSentence = InputString;
+                MessageBox.Show("There are no" + " " + inputword);
+            }
           return ConvertedSentence;
         }
 
@@ -70,8 +75,8 @@ namespace FindAWord
         public static Boolean VerifyDate(String InputString)
         {
             String _Input=InputString;
-            String Patten= "^[\\d]{4}[\\\\/-][\\d][^{3-9}{^a-z}{^22}{2}][\\\\/-][\\d]{2}";
-            Regex rg = new(Patten);
+            String Pattern= "^[\\d]{4}[\\\\/-][\\d][^{3-9}{^a-z}{^22}{2}][\\\\/-][\\d]{2}";
+            Regex rg = new(Pattern);
             
 
             return rg.IsMatch(InputString) ;
