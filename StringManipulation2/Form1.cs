@@ -51,6 +51,7 @@ namespace StringManipulation2
         {
             //Sets the form for the date verification
             StringBox.Visible = true;
+            StringBox.PlaceholderText = "yyyy/mm/dd or dd/mm/yyyy";
             EmailBTN.Visible = false;
             WordBox.Visible = false;
             label1.Visible = false;

@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using System.Diagnostics.Eventing.Reader;
 
 namespace FindAWord
 {
     public class StringManipulation
     {
-        
+
         public static String AddWord(String InputString, String Inputword, int _randomNum)
         {
             //Create Variables
@@ -32,12 +33,12 @@ namespace FindAWord
                 else
                 {
                     //If you find a space or puntuation add the word
-                    if (Sentence[i] == ' '|| Sentence[i] == '.' || Sentence[i] == '?' || Sentence[i] == '!')
+                    if (Sentence[i] == ' ' || Sentence[i] == '.' || Sentence[i] == '?' || Sentence[i] == '!')
                     {
                         NewWord = Sentence.Insert(i, " " + Word);
                         break;
                     }
-                   
+
                 }
             }
 
@@ -48,19 +49,19 @@ namespace FindAWord
 
         public static string DeleteWord(String InputString, String inputword)
         {
-            String ConvertedSentence=string.Empty;
+            String ConvertedSentence = string.Empty;
             String Pattern = " " + inputword;
             Regex _Regex = new(Pattern);
             if (_Regex.IsMatch(InputString))
             {
-                ConvertedSentence=_Regex.Replace(InputString,"");
+                ConvertedSentence = _Regex.Replace(InputString, "");
             }
             else
             {
                 ConvertedSentence = InputString;
                 MessageBox.Show("There are no" + " " + inputword);
             }
-          return ConvertedSentence;
+            return ConvertedSentence;
         }
 
         public static Boolean VerifyEmail(String InputString)
@@ -68,18 +69,220 @@ namespace FindAWord
             string Pattern = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+.com$";
 
             Regex rg = new(Pattern);
-            
+
             return rg.IsMatch(InputString);
         }
 
         public static Boolean VerifyDate(String InputString)
         {
-            String _Input=InputString;
-            String Pattern= "^[\\d]{4}[\\\\/-][\\d][^{3-9}{^a-z}{^22}{2}][\\\\/-][\\d]{2}";
+            String _Input = InputString;
+            Boolean match = false;
+            int month = 0;
+            int Leapyear = 2028;
+            //Date in the Year/Month/Day format.
+            String Pattern = "^[\\d]{4}[\\\\/-][\\d]{2}[\\\\/-][\\d]{2}";
+            //Date in the Day/Month/Year or Month/Day/Year format.
+            String Pattern2 = "[\\d]{2}[\\\\/-][\\d]{2}F[\\\\/-][\\d]{4}";
             Regex rg = new(Pattern);
-            
+            Regex rg2 = new(Pattern2);
+            int nextstart = 0;
+            if (rg.IsMatch(InputString))
+            {
+                String[] dateParts = new string[3];
+                dateParts[0] = InputString.Substring(0, 4);
+                dateParts[1] = InputString.Substring(5, 2);
+                dateParts[2] = InputString.Substring(8, 2);
+                month =Convert.ToInt32(dateParts[1]);
 
-            return rg.IsMatch(InputString) ;
+
+                switch (month) {
+                    case 01:
+                        if (Convert.ToInt32(dateParts[2]) > 31)
+                        {
+                            match = false;
+                        }
+                        else { 
+                        
+                        match = true;
+                        }
+
+                    break;
+                    case 02:
+                        if (Convert.ToInt32(dateParts[2]) > 29)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+                            for (int i = Leapyear; i < Convert.ToInt16(dateParts[0]); i+=4)
+                            {
+                                Leapyear = Leapyear + 4;
+                            }
+
+                                if (Convert.ToInt32(dateParts[0]) == Leapyear && Convert.ToInt32(dateParts[2])==29)
+                                {
+
+                                    match = true;
+                                }
+
+                                else
+                                {
+                                    match = false;
+                                }
+                            
+                            
+                        }
+                        
+
+                        break;
+                    
+                    case 03:
+                        if (Convert.ToInt32(dateParts[2]) > 31)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+
+                            match = true;
+                        }
+
+                        break;
+                   
+                    
+                    case 04:
+                        if (Convert.ToInt32(dateParts[2]) > 30)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+
+                            match = true;
+                        }
+
+                        break;
+
+                    case 05:
+                        if (Convert.ToInt32(dateParts[2]) > 31)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+
+                            match = true;
+                        }
+
+                        break;
+
+                    case 06:
+                        if (Convert.ToInt32(dateParts[2]) > 30)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+
+                            match = true;
+                        }
+
+                        break;
+
+                    case 07:
+                        if (Convert.ToInt32(dateParts[2]) > 31)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+
+                            match = true;
+                        }
+
+                        break;
+
+                    case 08:
+                        if (Convert.ToInt32(dateParts[2]) > 31)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+
+                            match = true;
+                        }
+
+                        break;
+
+                    case 09:
+                        if (Convert.ToInt32(dateParts[2]) > 30)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+
+                            match = true;
+                        }
+
+                        break;
+
+                    case 10:
+                        if (Convert.ToInt32(dateParts[2]) > 31)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+
+                            match = true;
+                        }
+
+                        break;
+
+                    case 11:
+                        if (Convert.ToInt32(dateParts[2]) > 30)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+
+                            match = true;
+                        }
+
+                        break;
+
+                    case 12:
+                        if (Convert.ToInt32(dateParts[2]) > 31)
+                        {
+                            match = false;
+                        }
+                        else
+                        {
+
+                            match = true;
+                        }
+
+                        break;
+                }
+
+                if (Convert.ToInt32(dateParts[2]) > 31)
+                {
+                    match = false;
+                }
+
+
+
+            }
+            if (rg2.IsMatch(InputString))
+            {
+
+                match = true;
+            }
+
+            return match;
         }
-    }
+    } 
 }
